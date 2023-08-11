@@ -1,7 +1,7 @@
 import { createElement } from "../render.js";
 
 function createPointTemplate () {
-  return (`
+  return `
         <li class="trip-events__item">
             <div class="event">
             <time class="event__date" datetime="2019-03-18">MAR 18</time>
@@ -12,7 +12,7 @@ function createPointTemplate () {
             <div class="event__schedule">
                 <p class="event__time">
                 <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
-                &mdash;
+
                 <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
                 </p>
                 <p class="event__duration">30M</p>
@@ -24,7 +24,7 @@ function createPointTemplate () {
             <ul class="event__selected-offers">
                 <li class="event__offer">
                 <span class="event__offer-title">Order Uber</span>
-                &plus;&euro;&nbsp;
+                &plus;&
                 <span class="event__offer-price">20</span>
                 </li>
             </ul>
@@ -39,7 +39,7 @@ function createPointTemplate () {
             </button>
             </div>
         </li>
-    `);
+    `;
 }
 
 export default class PointView {
