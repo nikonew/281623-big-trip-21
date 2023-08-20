@@ -1,21 +1,11 @@
-import {mockDestinations} from '../mock/task.js';
+import {getRandomPoint} from '../mock/task.js';
+import {POINTS_COUNT} from '../const.js';
 
 export default class PointsModel {
-  constructor() {
-    //this.points = points;
-    this.destinations = mockDestinations;
-    //this.offers = offers;
+  points = Array.from({length: POINTS_COUNT}, getRandomPoint);
+
+  getPoints() {
+    return this.points;
   }
-
-  // getPoints() {
-  //   return this.points;
-  // }
-
-  getDestinations() {
-    return this.destinations;
-  }
-
-  // getOffers() {
-  //   return this.offers;
-  // }
 }
+

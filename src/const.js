@@ -1,3 +1,14 @@
+
+export const POINTS_COUNT = 4;
+
+export const DATE_FORMAT = 'MM DD';
+
+export const TIME_FORMAT = 'hh:mm';
+
+export const EDIT_DATE_FORMAT = 'DD/MM/YY HH:MM';
+
+export const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
+
 export const DESTINATIONS = ['Amsterdam', 'Chamonix', 'Geneva', 'Rome', 'New York'];
 
 export const OFFERS = [
