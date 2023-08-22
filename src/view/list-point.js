@@ -2,7 +2,7 @@ import { createElement } from '../render.js';
 import {humanizeTimeFromTo,humanizeTravelTime,humanizeTravelDate} from '../util.js';
 
 function createPointTemplate (point) {
-  const { basePrice, dateTo, dateFrom, destination, isFavorite, offers, type } = point;
+  const { basePrice, dateTo, dateFrom, destination, isFavorite, offers } = point;
   const dataDay = humanizeTravelDate(dateFrom);
   const dataStart = humanizeTimeFromTo(dateFrom);
   const dateEnd = humanizeTimeFromTo(dateTo);
@@ -13,7 +13,7 @@ function createPointTemplate (point) {
     : 'event__favorite-btn--disabled';
 
   return (
-        `<li class="trip-events__item">
+    `<li class="trip-events__item">
             <div class="event">
             <time class="event__date" datetime="2019-03-18">${dataDay}</time>
             <div class="event__type">
@@ -49,8 +49,8 @@ function createPointTemplate (point) {
                 <span class="visually-hidden">Open event</span>
             </button>
             </div>
-        </li>`
-    );
+    </li>`
+  );
 }
 
 export default class PointView {
@@ -59,7 +59,7 @@ export default class PointView {
   }
 
   getTemplate() {
-    return createPointTemplate(this.point)
+    return createPointTemplate(this.point);
   }
 
   getElement() {
