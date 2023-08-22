@@ -1,4 +1,4 @@
-import {getRandomPoint} from '../mock/task.js';
+import {getRandomPoint} from '../mock/points.js';
 import {POINTS_COUNT} from '../const.js';
 
 export default class PointsModel {
@@ -8,4 +8,5 @@ export default class PointsModel {
     return this.points;
   }
 }
+
 

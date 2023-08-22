@@ -12,14 +12,14 @@ function createPointTemplate (point) {
     ? 'event__favorite-btn--active'
     : 'event__favorite-btn--disabled';
 
-  return `
-        <li class="trip-events__item">
+  return (
+        `<li class="trip-events__item">
             <div class="event">
             <time class="event__date" datetime="2019-03-18">${dataDay}</time>
             <div class="event__type">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
             </div>
-            <h3 class="event__title">${type} ${destination}</h3>
+            <h3 class="event__title">${destination.description}</h3>
             <div class="event__schedule">
                 <p class="event__time">
                 <time class="event__start-time" datetime="2019-03-18T10:30">${dataStart}</time>
@@ -34,9 +34,9 @@ function createPointTemplate (point) {
             <h4 class="visually-hidden">Offers:</h4>
             <ul class="event__selected-offers">
                 <li class="event__offer">
-                <span class="event__offer-title">${offers}</span>
+                <span class="event__offer-title">${offers.title}</span>
                 &plus;&
-                <span class="event__offer-price">${offers}</span>
+                <span class="event__offer-price">${offers.price}</span>
                 </li>
             </ul>
             <button class="event__favorite-btn ${favoritePoint}" type="button">
@@ -49,17 +49,17 @@ function createPointTemplate (point) {
                 <span class="visually-hidden">Open event</span>
             </button>
             </div>
-        </li>
-    `;
+        </li>`
+    );
 }
 
 export default class PointView {
-  constructor(point) {
+  constructor({point}) {
     this.point = point;
   }
 
   getTemplate() {
-    return createPointTemplate(this.point);
+    return createPointTemplate(this.point)
   }
 
   getElement() {
