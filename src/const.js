@@ -1,6 +1,8 @@
 
 export const POINTS_COUNT = 4;
 
+export const OFFER_COUNT = 2;
+
 export const DATE_FORMAT = 'MM DD';
 
 export const TIME_FORMAT = 'hh:mm';
@@ -23,7 +25,7 @@ export const OFFERS = [
 ];
 
 export const DESCRIPTIONS = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget',
+  'Lorem ipsum dolor sit amet',
   'Fusce tristique felis at fermentum pharetra',
   'Aliquam id orci ut lectus varius viverra',
   'Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante',

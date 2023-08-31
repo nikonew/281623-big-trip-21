@@ -7,6 +7,8 @@ import {POINTS_COUNT} from '../const.js';
 
 export default class BoardPresenter {
   listComponent = new EditList();
+  listEventEdit = new EventEditView();
+  listSort = new SortView();
 
   constructor({boardContainer, pointsModel}) {
     this.boardContainer = boardContainer;
@@ -16,9 +18,9 @@ export default class BoardPresenter {
   init() {
     this.listPoints = [...this.pointsModel.getPoints()];
 
-    render(new SortView(), this.boardContainer);
+    render(this.listSort, this.boardContainer);
     render(this.listComponent, this.boardContainer);
-    render(new EventEditView(), this.listComponent.getElement());
+    render(this.listEventEdit, this.listComponent.getElement());
 
     for (let i = 0; i < POINTS_COUNT; i++) {
       render(new PointView({point: this.listPoints[i]}), this.listComponent.getElement());
