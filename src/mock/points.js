@@ -3,8 +3,6 @@ import {TYPES} from '../const.js';
 import {destinations} from './destination.js';
 import {offers} from './offers.js';
 
-
-
 const points = [
   {
     'id': getRandomInteger(0,10),
