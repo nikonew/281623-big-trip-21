@@ -19,7 +19,7 @@ const points = [
     'basePrice': 2100,
     'dateFrom': '2020-07-11T12:55:56.845Z',
     'dateTo': '2020-07-12T14:22:13.375Z',
-    'destination': destinations,
+    'destination': getRandomArrayElement(destinations),
     'isFavorite': false,
     'offers':Array.from({ length: getRandomInteger(1, 3) }, () => getRandomArrayElement(offers)),
     'type': getRandomArrayElement(TYPES)
@@ -35,7 +35,7 @@ const points = [
     'type': getRandomArrayElement(TYPES)
   }
 ];
-
+console.log(points);
 export function getRandomPoint() {
   return getRandomArrayElement(points);
 }

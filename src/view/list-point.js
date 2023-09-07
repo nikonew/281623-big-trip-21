@@ -19,8 +19,8 @@ function createPointTemplate (point) {
             <div class="event__type">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
             </div>
-            ${destination.map((element) => (`<h3 class="event__title">${element.name}</h3>
-    <h3 class="event__title">${element.description}</h3>`)).join('')}
+              <h3 class="event__title">${destination.name}</h3>
+              <h3 class="event__title">${destination.description}</h3>
             <div class="event__schedule">
                 <p class="event__time">
                 <time class="event__start-time" datetime="2019-03-18T10:30">${dataStart}</time>
