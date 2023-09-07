@@ -1,8 +1,6 @@
 
 export const POINTS_COUNT = 4;
 
-export const OFFER_COUNT = 2;
-
 export const DATE_FORMAT = 'MM DD';
 
 export const TIME_FORMAT = 'hh:mm';

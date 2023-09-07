@@ -2,7 +2,7 @@ import { createElement } from '../render.js';
 import {humanizeTimeFromTo,humanizeTravelTime,humanizeTravelDate} from '../util.js';
 
 function createPointTemplate (point) {
-  const { basePrice, dateTo, dateFrom, destination, isFavorite, offers } = point;
+  const { basePrice, dateTo, dateFrom, destination, isFavorite, offers, type } = point;
   const dataDay = humanizeTravelDate(dateFrom);
   const dataStart = humanizeTimeFromTo(dateFrom);
   const dateEnd = humanizeTimeFromTo(dateTo);
@@ -19,8 +19,7 @@ function createPointTemplate (point) {
             <div class="event__type">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
             </div>
-              <h3 class="event__title">${destination.name}</h3>
-              <h3 class="event__title">${destination.description}</h3>
+              <h3 class="event__title">${type} ${destination.name}</h3>
             <div class="event__schedule">
                 <p class="event__time">
                 <time class="event__start-time" datetime="2019-03-18T10:30">${dataStart}</time>
