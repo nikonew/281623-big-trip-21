@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createLoadMoreButtonTemplate() {
   return `
@@ -6,20 +6,9 @@ function createLoadMoreButtonTemplate() {
 `;
 }
 
-export default class LoadMoreButtonView {
-  getTemplate() {
+export default class LoadMoreButtonView extends AbstractView{
+  get template() {
     return createLoadMoreButtonTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }

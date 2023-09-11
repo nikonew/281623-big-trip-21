@@ -1,5 +1,5 @@
 import PointsModel from './model/point-model.js';
-import {render, RenderPosition} from './render.js';
+import {render, RenderPosition} from './framework/render.js';
 import FilterView from './view/list-filter.js';
 import BoardPresenter from '../src/presenter/board-presenter.js';
 import InfoTrip from './view/list-info.js';

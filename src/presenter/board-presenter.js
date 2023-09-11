@@ -2,7 +2,7 @@ import EditList from '../view/list-view.js';
 import SortView from '../view/list-sort.js';
 import PointView from '../view/list-point.js';
 import EventEditView from '../view/list-event-view.js';
-import {render} from '../render.js';
+import {render} from '../framework/render.js';
 import {POINTS_COUNT} from '../const.js';
 
 export default class BoardPresenter {
@@ -20,10 +20,10 @@ export default class BoardPresenter {
 
     render(this.listSort, this.boardContainer);
     render(this.listComponent, this.boardContainer);
-    render(this.listEventEdit, this.listComponent.getElement());
+    render(this.listEventEdit, this.listComponent.element);
 
     for (let i = 0; i < POINTS_COUNT; i++) {
-      render(new PointView({point: this.listPoints[i]}), this.listComponent.getElement());
+      render(new PointView({point: this.listPoints[i]}), this.listComponent.element);
     }
   }
 }
