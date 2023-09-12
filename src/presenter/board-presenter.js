@@ -25,8 +25,14 @@ export default class BoardPresenter {
     render(this.#listComponent, this.#boardContainer);
     render(this.#listEventEdit, this.#listComponent.element);
 
-    for (let i = 0; i < POINTS_COUNT; i++) {
-      render(new PointView({point: this.#listPoints[i]}), this.#listComponent.element);
+    for (let i = 0; i < this.#listPoints.length; i++) {
+      this.#renderTask(this.#listPoints[i]);
     }
+  }
+
+  #renderTask(point) {
+    const pointComponent = new PointView({point});
+
+    render(pointComponent, this.#listComponent.element);
   }
 }
