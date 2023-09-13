@@ -2,12 +2,11 @@ import EditList from '../view/list-view.js';
 import SortView from '../view/list-sort.js';
 import PointView from '../view/list-point.js';
 import EventEditView from '../view/list-event-view.js';
-import {render} from '../framework/render.js';
+import {render,replace} from '../framework/render.js';
 import {POINTS_COUNT} from '../const.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
-  #listEventEdit = new EventEditView();
   #listSort = new SortView();
   #pointsModel = null;
   #boardContainer = null;
@@ -23,7 +22,6 @@ export default class BoardPresenter {
 
     render(this.#listSort, this.#boardContainer);
     render(this.#listComponent, this.#boardContainer);
-    render(this.#listEventEdit, this.#listComponent.element);
 
     for (let i = 0; i < this.#listPoints.length; i++) {
       this.#renderTask(this.#listPoints[i]);
@@ -31,7 +29,40 @@ export default class BoardPresenter {
   }
 
   #renderTask(point) {
-    const pointComponent = new PointView({point});
+    const escKeyDownHandler = (evt) => {
+      if (isEscapeKey(evt)) {
+        evt.preventDefault();
+        replaceFormToCard();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      }
+    };
+
+    const pointComponent = new PointView({
+      point,
+      onEditClick: () => {
+        replaceCardToForm();
+        document.addEventListener('keydown', escKeyDownHandler);
+      },
+    });
+
+    const pointEvent = new EventEditView({point,
+      onFormSubmit: () => {
+        replaceFormToCard();
+        document.removeEventListener('keydown', escKeyDownHandler);
+      },
+      onCloseEdit: () => {
+        replaceFormToCard();
+        document.addEventListener('keydown', escKeyDownHandler);
+      }
+    });
+
+    function replaceFormToCard () {
+      replace(pointComponent, pointEvent);
+    }
+
+    function replaceCardToForm() {
+      replace(pointComponent, pointEvent);
+    }
 
     render(pointComponent, this.#listComponent.element);
   }

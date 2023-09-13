@@ -1,6 +1,10 @@
 import AbstractView from '../framework/view/abstract-view.js';
+import {offers} from '../mock/offers.js';
+import {randomPoint} from '../mock/points.js';
 
-function createEventEditTemplate() {
+
+function createEventEditTemplate(point = randomPoint) {
+  const {offers} = point;
   return (`
     <li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
@@ -74,7 +78,6 @@ function createEventEditTemplate() {
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
               <span class="visually-hidden">Price</span>
-              &euro;
             </label>
             <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="">
           </div>
@@ -88,41 +91,36 @@ function createEventEditTemplate() {
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
                 <label class="event__offer-label" for="event-offer-luggage-1">
-                  <span class="event__offer-title">Add luggage</span>
-                  &plus;&euro;&nbsp;
-                  <span class="event__offer-price">30</span>
+                  <span class="event__offer-title">${offers.title}</span>
+                  <span class="event__offer-price">${offers.price}</span>
                 </label>
               </div>
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort" checked>
                 <label class="event__offer-label" for="event-offer-comfort-1">
-                  <span class="event__offer-title">Switch to comfort class</span>
-                  &plus;&euro;&nbsp;
-                  <span class="event__offer-price">100</span>
+                  <span class="event__offer-title">${offers.title}</span>
+                  <span class="event__offer-price">${offers.price}</span>
                 </label>
               </div>
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal">
                 <label class="event__offer-label" for="event-offer-meal-1">
-                  <span class="event__offer-title">Add meal</span>
-                  &plus;&euro;&nbsp;
-                  <span class="event__offer-price">15</span>
+                  <span class="event__offer-title">${offers.title}</span>
+                  <span class="event__offer-price">${offers.price}</span>
                 </label>
               </div>
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats">
                 <label class="event__offer-label" for="event-offer-seats-1">
-                  <span class="event__offer-title">Choose seats</span>
-                  &plus;&euro;&nbsp;
-                  <span class="event__offer-price">5</span>
+                  <span class="event__offer-title">${offers.title}</span>
+                  <span class="event__offer-price">${offers.price}</span>
                 </label>
               </div>
               <div class="event__offer-selector">
                 <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train">
                 <label class="event__offer-label" for="event-offer-train-1">
-                  <span class="event__offer-title">Travel by train</span>
-                  &plus;&euro;&nbsp;
-                  <span class="event__offer-price">40</span>
+                  <span class="event__offer-title">${offers.title}</span>
+                  <span class="event__offer-price">${offers.price}</span>
                 </label>
               </div>
             </div>
@@ -146,9 +144,33 @@ function createEventEditTemplate() {
   `);
 }
 
+
 export default class EventEditView extends AbstractView {
-  get template() {
-    return createEventEditTemplate();
+  #point = null;
+  #handleFormSubmit = null;
+  #handleClick = null;
+
+  constructor({point, onFormSubmit, onCloseEdit}) {
+    super();
+    this.#point = point;
+    this.#handleFormSubmit = onFormSubmit;
+    this.#handleClick = onCloseEdit;
+
+    this.element.querySelector('form')
+      .addEventListener('submit', this.#formSubmitHandler);
   }
 
+  get template() {
+    return createEventEditTemplate(this.#point);
+  }
+
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleClick();
+  };
+
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit();
+  };
 }

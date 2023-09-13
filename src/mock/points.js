@@ -50,3 +50,4 @@ export function getRandomPoint() {
   return getRandomArrayElement(points);
 }
 
+export const randomPoint = getRandomPoint();
