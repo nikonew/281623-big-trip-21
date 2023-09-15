@@ -27,3 +27,5 @@ export function humanizeTimeEdit(dateTime) {
 export function humanizeTravelTime(from, to) {
   return dayjs(to).diff(dayjs(from), 'h');
 }
+
+export const isEscapeKey = (evt) => evt.key === 'Escape';

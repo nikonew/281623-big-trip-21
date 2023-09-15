@@ -1,9 +1,9 @@
+import {isEscapeKey} from '../util.js';
 import EditList from '../view/list-view.js';
 import SortView from '../view/list-sort.js';
 import PointView from '../view/list-point.js';
 import EventEditView from '../view/list-event-view.js';
 import {render,replace} from '../framework/render.js';
-import {POINTS_COUNT} from '../const.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
@@ -42,7 +42,7 @@ export default class BoardPresenter {
       onEditClick: () => {
         replaceCardToForm();
         document.addEventListener('keydown', escKeyDownHandler);
-      },
+      }
     });
 
     const pointEvent = new EventEditView({point,

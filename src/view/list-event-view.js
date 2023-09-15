@@ -1,5 +1,4 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {offers} from '../mock/offers.js';
 import {randomPoint} from '../mock/points.js';
 
 
