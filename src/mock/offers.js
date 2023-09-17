@@ -1,22 +1,27 @@
+import {getRandomArrayElement, getRandomInteger} from '../util.js';
 import {OFFERS} from '../const.js';
-import {getRandomArrayElement} from '../util.js';
 
 export const offers = [
   {
-    'id': 0,
+    'id': crypto.randomUUID(),
     'title': getRandomArrayElement(OFFERS),
-    'price': '100'
+    'price': getRandomInteger(0, 100)
   },
   {
-    'id': 1,
+    'id': crypto.randomUUID(),
     'title': getRandomArrayElement(OFFERS),
-    'price': '50'
+    'price': getRandomInteger(0, 100)
   },
   {
-    'id': 2,
+    'id': crypto.randomUUID(),
     'title': getRandomArrayElement(OFFERS),
-    'price': '15'
+    'price': getRandomInteger(0, 100)
   },
+  {
+    'id': crypto.randomUUID(),
+    'title': getRandomArrayElement(OFFERS),
+    'price': getRandomInteger(0, 100)
+  }
 ];
 
 
