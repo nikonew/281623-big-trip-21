@@ -18,21 +18,16 @@ export default class BoardPresenter {
   }
 
   init() {
-    this.#listPoints = [...this.#pointsModel.points];
-
     render(this.#listSort, this.#boardContainer);
-    render(this.#listComponent, this.#boardContainer);
-
-    for (let i = 0; i < this.#listPoints.length; i++) {
-      this.#renderTask(this.#listPoints[i]);
-    }
+    this.#listPoints = [...this.#pointsModel.points];
+    this.#renderPointList();
   }
 
   #renderTask(point) {
     const escKeyDownHandler = (evt) => {
       if (isEscapeKey(evt)) {
         evt.preventDefault();
-        replaceFormToCard();
+        replaceCardToForm();
         document.removeEventListener('keydown', escKeyDownHandler);
       }
     };
@@ -40,30 +35,39 @@ export default class BoardPresenter {
     const pointComponent = new PointView({
       point,
       onEditClick: () => {
-        replaceCardToForm();
+        replaceFormToCard();
         document.addEventListener('keydown', escKeyDownHandler);
       }
     });
 
-    const pointEvent = new EventEditView({point,
-      onFormSubmit: () => {
-        replaceFormToCard();
+    const pointForm = new EventEditView({
+      point,
+
+      onSubmitClick: () => {
+        replaceCardToForm();
         document.removeEventListener('keydown', escKeyDownHandler);
       },
-      onCloseEdit: () => {
-        replaceFormToCard();
+      onFormEdit: () => {
+        replaceCardToForm();
         document.addEventListener('keydown', escKeyDownHandler);
-      }
+      },
     });
 
-    function replaceFormToCard () {
-      replace(pointComponent, pointEvent);
+    function replaceFormToCard() {
+      replace(pointForm, pointComponent);
     }
 
     function replaceCardToForm() {
-      replace(pointComponent, pointEvent);
+      replace(pointComponent, pointForm);
     }
 
     render(pointComponent, this.#listComponent.element);
+  }
+
+  #renderPointList() {
+    render(this.#listComponent, this.#boardContainer);
+    this.#listPoints.map((item) => {
+      this.#renderTask(item);
+    });
   }
 }
