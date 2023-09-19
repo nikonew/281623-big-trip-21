@@ -40,17 +40,13 @@ export default class BoardPresenter {
       }
     });
 
-    const pointForm = new EventEditView({
-      point,
+    function onSubmitClick () {
+      replaceCardToForm();
+      document.removeEventListener('keydown', escKeyDownHandler);
+    }
 
-      onSubmitClick: () => {
-        replaceCardToForm();
-        document.removeEventListener('keydown', escKeyDownHandler);
-      },
-      onFormEdit: () => {
-        replaceCardToForm();
-        document.addEventListener('keydown', escKeyDownHandler);
-      },
+    const pointForm = new EventEditView({
+      point, onSubmitClick
     });
 
     function replaceFormToCard() {
