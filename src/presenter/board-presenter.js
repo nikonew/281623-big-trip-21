@@ -4,6 +4,7 @@ import SortView from '../view/list-sort.js';
 import PointView from '../view/list-point.js';
 import EventEditView from '../view/list-event-view.js';
 import {render,replace} from '../framework/render.js';
+import NoPointView from '../view/no-task-view.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
@@ -61,6 +62,11 @@ export default class BoardPresenter {
   }
 
   #renderPointList() {
+    if(this.#listPoints.length === 0) {
+      render(new NoPointView(), this.#boardContainer);
+      return;
+    }
+
     render(this.#listComponent, this.#boardContainer);
     this.#listPoints.map((item) => {
       this.#renderTask(item);
