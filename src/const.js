@@ -31,3 +31,10 @@ export const DESCRIPTIONS = [
   'Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui',
   'Sed sed nisi sed augue convallis suscipit in sed felis'
 ];
+
+export const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE:'future',
+  PRESENT:'present',
+  PAST:'past',
+};
