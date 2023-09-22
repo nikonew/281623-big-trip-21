@@ -16,16 +16,16 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
               <fieldset class="event__type-group">
                 <legend class="visually-hidden">Event type</legend>
                 <div class="event__type-item">
-                  <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="Taxi">
-                  <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
+                  <input id="event-type-${type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type}">
+                  <label class="event__type-label  event__type-label--${type}" for="event-type-${type}-1">Taxi</label>
                 </div>
                 <div class="event__type-item">
-                  <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
-                  <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">Bus</label>
+                  <input id="event-type-${type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type}">
+                  <label class="event__type-label  event__type-label--${type}" for="event-type-${type}-1">Bus</label>
                 </div>
                 <div class="event__type-item">
-                  <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
-                  <label class="event__type-label  event__type-label--train" for="event-type-train-1">Train</label>
+                  <input id="event-type-${type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${type}">
+                  <label class="event__type-label  event__type-label--train" for="event-type-${type}-1">Train</label>
                 </div>
                 <div class="event__type-item">
                   <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
@@ -74,7 +74,7 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
           </div>
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
-              <span class="visually-hidden">Price</span>
+              &euro;&nbsp;<span class="visually-hidden">Price</span>
             </label>
             <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${basePrice}">
           </div>
