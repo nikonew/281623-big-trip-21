@@ -1,6 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
-function createFilterItemTemplite(filter, isCheked){
+function createFilterItemTemplate(filter, isChecked){
   const {type,count} = filter;
   return (`<div class="trip-filters__filter">
   <input
@@ -8,7 +8,7 @@ function createFilterItemTemplite(filter, isCheked){
   class="trip-filters__filter-input  visually-hidden"
   type="radio"
   name="trip-filter"
-  ${isCheked ? 'checked' : ''}
+  ${isChecked ? 'checked' : ''}
   ${count === 0 ? 'disabled' : ''}
   value="${type}">
   <label class="trip-filters__filter-label"
@@ -16,12 +16,12 @@ function createFilterItemTemplite(filter, isCheked){
   </div>
   `);
 }
-function createWayPointTemplite(FilterItems){
-  const filterItemsTemplite = FilterItems
-    .map((filter,index)=> createFilterItemTemplite(filter,index === 0)).join('');
+function createWayPointTemplate(FilterItems){
+  const filterItemsTemplate = FilterItems
+    .map((filter,index)=> createFilterItemTemplate(filter,index === 0)).join('');
   return(
     `<form class="trip-filters" action="#" method="get">
-        ${filterItemsTemplite}
+        ${filterItemsTemplate}
         <button class="visually-hidden" type="submit">Accept filter</button>
         </form>`
   );
@@ -36,7 +36,7 @@ export default class FilterView extends AbstractView {
   }
 
   get template() {
-    return createWayPointTemplite(this.#filters);
+    return createWayPointTemplate(this.#filters);
   }
 
 }

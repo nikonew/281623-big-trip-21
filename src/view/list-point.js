@@ -29,12 +29,13 @@ function createPointTemplate (point) {
                 <p class="event__duration">${travelTime}</p>
             </div>
             <p class="event__price">
-                <span class="event__price-value">${basePrice}</span>
+                &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
             </p>
             <h4 class="visually-hidden">Offers:</h4>
             <ul class="event__selected-offers">
                 ${offers.map((element) => (`<li class="event__offer">
           <span class="event__offer-title">${element.title}</span>
+          &plus;&euro;&nbsp;
           <span class="event__offer-price">${element.price}</span>
         </li>`)).join('')
     }

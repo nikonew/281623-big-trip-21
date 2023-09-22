@@ -12,7 +12,7 @@ const isPresentEvent = (dateFrom, dateTo) => !isStartDateExpired(dateFrom) && is
 const isPastEvent = (dateFrom, dateTo) => !isStartDateExpired(dateFrom) && !isEndDateExpired(dateTo);
 
 
-const filter = {
+const filterElements = {
   [FilterType.EVERYTHING]: (points) => points,
   [FilterType.FUTURE]: (points) => points.filter((point) => isFutureEvent(point.dateFrom, point.dateTo)),
   [FilterType.PRESENT]: (points) => points.filter((point) => isPresentEvent(point.dateFrom, point.dateTo)),
@@ -20,7 +20,7 @@ const filter = {
 };
 
 export function generateFilter(points){
-  return Object.entries(filter).map(//получем массив массивов ключ-значение из объекта и итерируемся по нему
+  return Object.entries(filterElements).map(//получем массив массивов ключ-значение из объекта и итерируемся по нему
     ([filterType,filterPoints])=>({
       type:filterType,
       count:filterPoints(points).length,//количество задач соответствующих фильтру
