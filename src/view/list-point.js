@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {humanizeTimeFromTo,humanizeTravelTime,humanizeTravelDate} from '../util.js';
+import {humanizeTimeFromTo,humanizeTravelTime,humanizeTravelDate, getPointDuration} from '../util.js';
 
 function createPointTemplate (point) {
   const { basePrice, dateTo, dateFrom, destination, isFavorite, offers, type } = point;
@@ -26,7 +26,7 @@ function createPointTemplate (point) {
 
                 <time class="event__end-time" datetime="2019-03-18T11:00">${dateEnd}</time>
                 </p>
-                <p class="event__duration">${travelTime}</p>
+                <p class="event__duration">${getPointDuration(dateFrom, dateTo)}</p>
             </div>
             <p class="event__price">
                 &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
