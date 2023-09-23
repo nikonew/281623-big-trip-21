@@ -6,7 +6,6 @@ function createPointTemplate (point) {
   const dataDay = humanizeTravelDate(dateFrom);
   const dataStart = humanizeTimeFromTo(dateFrom);
   const dateEnd = humanizeTimeFromTo(dateTo);
-  const travelTime = humanizeTravelTime(dateFrom, dateTo);
 
   const favoritePoint = isFavorite
     ? 'event__favorite-btn--active'
