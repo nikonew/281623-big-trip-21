@@ -5,7 +5,7 @@ export const DATE_FORMAT = 'MMMM DD';
 
 export const TIME_FORMAT = 'hh:mm';
 
-export const EDIT_DATE_FORMAT = 'DD/MM/YY HH:MM';
+export const FULL_DATE_FORMAT = 'DD/MM/YY HH:MM';
 
 export const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 

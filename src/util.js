@@ -1,4 +1,4 @@
-import {DATE_FORMAT, TIME_FORMAT, EDIT_DATE_FORMAT,} from './const.js';
+import {DATE_FORMAT, TIME_FORMAT, FULL_DATE_FORMAT,} from './const.js';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -26,20 +26,16 @@ const MSEC_IN_HOUR = MIN_IN_HOUR * SEC_IN_MIN * MSEC_IN_SEC;
 
 const MSEC_IN_DAY = HOUR_IN_DAY * MSEC_IN_HOUR;
 
-export function humanizeTravelDate(dateForm) {
-  return dateForm ? dayjs(dateForm).format(DATE_FORMAT) : '';
+export function humanizeTravelDate(date) {
+  return dayjs(date).format(DATE_FORMAT);
 }
 
-export function humanizeTimeFromTo(dateTo) {
-  return dateTo ? dayjs(dateTo).format(TIME_FORMAT) : '';
+export function humanizeTimeFromTo(date) {
+  return date ? dayjs(date).format(TIME_FORMAT) : '';
 }
 
-export function humanizeTimeEdit(dateTime) {
-  return dateTime ? dayjs(dateTime).format(EDIT_DATE_FORMAT) : '';
-}
-
-export function humanizeTravelTime(from, to) {
-  return dayjs(to).diff(dayjs(from), 'h');
+export function humanizeTimeEdit(date) {
+  return date ? dayjs(date).format(FULL_DATE_FORMAT) : '';
 }
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
