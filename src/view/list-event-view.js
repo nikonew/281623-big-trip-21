@@ -75,11 +75,9 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
             <p class="event__destination-description">${destination.description}</p>
             <div class="event__photos-container">
               <div class="event__photos-tape">
-                <img class="event__photo" src="img/photos/1.jpg" alt="Event photo">
-                <img class="event__photo" src="img/photos/2.jpg" alt="Event photo">
-                <img class="event__photo" src="img/photos/3.jpg" alt="Event photo">
-                <img class="event__photo" src="img/photos/4.jpg" alt="Event photo">
-                <img class="event__photo" src="img/photos/5.jpg" alt="Event photo">
+              ${destination.pictures.map((element) =>
+      `<img class="event__photo" src="${element.src}" alt="${element.description}">`
+    ).join('')}
               </div>
             </div>
           </section>
