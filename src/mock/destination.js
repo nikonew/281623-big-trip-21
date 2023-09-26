@@ -3,7 +3,7 @@ import {DESCRIPTIONS,DESTINATIONS} from '../const.js';
 
 export const destinations = [
   {
-    'id': 1,
+    'id': crypto.randomUUID(),
     'description': getRandomArrayElement(DESCRIPTIONS),
     'name': getRandomArrayElement(DESTINATIONS),
     'pictures': [
@@ -14,7 +14,7 @@ export const destinations = [
     ]
   },
   {
-    'id': 2,
+    'id': crypto.randomUUID(),
     'description': getRandomArrayElement(DESCRIPTIONS),
     'name': getRandomArrayElement(DESTINATIONS),
     'pictures': [
@@ -25,7 +25,7 @@ export const destinations = [
     ]
   },
   {
-    'id': 3,
+    'id': crypto.randomUUID(),
     'description': getRandomArrayElement(DESCRIPTIONS),
     'name': getRandomArrayElement(DESTINATIONS),
     'pictures': [
@@ -36,7 +36,7 @@ export const destinations = [
     ]
   },
   {
-    'id': 4,
+    'id': crypto.randomUUID(),
     'description': getRandomArrayElement(DESCRIPTIONS),
     'name': getRandomArrayElement(DESTINATIONS),
     'pictures': [

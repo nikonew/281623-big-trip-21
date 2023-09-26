@@ -1,11 +1,11 @@
 
 export const POINTS_COUNT = 4;
 
-export const DATE_FORMAT = 'MM DD';
+export const DATE_FORMAT = 'MMMM DD';
 
 export const TIME_FORMAT = 'hh:mm';
 
-export const EDIT_DATE_FORMAT = 'DD/MM/YY HH:MM';
+export const FULL_DATE_FORMAT = 'DD/MM/YY HH:MM';
 
 export const TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 
@@ -31,3 +31,10 @@ export const DESCRIPTIONS = [
   'Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui',
   'Sed sed nisi sed augue convallis suscipit in sed felis'
 ];
+
+export const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE:'future',
+  PRESENT:'present',
+  PAST:'past',
+};

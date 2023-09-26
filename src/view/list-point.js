@@ -1,12 +1,12 @@
-import { createElement } from '../render.js';
-import {humanizeTimeFromTo,humanizeTravelTime,humanizeTravelDate} from '../util.js';
+import AbstractView from '../framework/view/abstract-view.js';
+import {humanizeTimeFromTo, humanizeTravelDate, getPointDuration, humanizeTimeEdit} from '../util.js';
 
 function createPointTemplate (point) {
   const { basePrice, dateTo, dateFrom, destination, isFavorite, offers, type } = point;
   const dataDay = humanizeTravelDate(dateFrom);
   const dataStart = humanizeTimeFromTo(dateFrom);
   const dateEnd = humanizeTimeFromTo(dateTo);
-  const travelTime = humanizeTravelTime(dateFrom, dateTo);
+  const dataFull = humanizeTimeEdit(dateFrom);
 
   const favoritePoint = isFavorite
     ? 'event__favorite-btn--active'
@@ -15,9 +15,9 @@ function createPointTemplate (point) {
   return (
     `<li class="trip-events__item">
             <div class="event">
-            <time class="event__date" datetime="2019-03-18">${dataDay}</time>
+            <time class="event__date" datetime="${dataFull}">${dataDay}</time>
             <div class="event__type">
-                <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+                <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
             </div>
               <h3 class="event__title">${type} ${destination.name}</h3>
             <div class="event__schedule">
@@ -26,15 +26,16 @@ function createPointTemplate (point) {
 
                 <time class="event__end-time" datetime="2019-03-18T11:00">${dateEnd}</time>
                 </p>
-                <p class="event__duration">${travelTime}</p>
+                <p class="event__duration">${getPointDuration(dateFrom, dateTo)}</p>
             </div>
             <p class="event__price">
-                <span class="event__price-value">${basePrice}</span>
+                &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
             </p>
             <h4 class="visually-hidden">Offers:</h4>
             <ul class="event__selected-offers">
                 ${offers.map((element) => (`<li class="event__offer">
           <span class="event__offer-title">${element.title}</span>
+          &plus;&euro;&nbsp;
           <span class="event__offer-price">${element.price}</span>
         </li>`)).join('')
     }
@@ -53,24 +54,28 @@ function createPointTemplate (point) {
   );
 }
 
-export default class PointView {
-  constructor({point}) {
-    this.point = point;
+export default class PointView extends AbstractView {
+  #point = null;
+  #handleEditClick = null;
+
+  constructor({ point, onEditClick }) {
+    super();
+    this.#point = point;
+    this.#handleEditClick = onEditClick;
+
+    this.element
+      .querySelector('.event__rollup-btn')
+      .addEventListener('click', this.#editClickHandler);
   }
 
-  getTemplate() {
-    return createPointTemplate(this.point);
+  get template() {
+    return createPointTemplate(this.#point);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
+  #editClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleEditClick();
+  };
 
-    return this.element;
-  }
 
-  removeElement() {
-    this.element = null;
-  }
 }
