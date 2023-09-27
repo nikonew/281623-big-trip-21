@@ -40,7 +40,7 @@ export default class PointPresenter {
     }
 
     if (this.#pointListContainer.contains(prevPointEditComponent.element)) {
-      replace(this.#pointComponent, prevPointEditComponent);
+      replace(this.#pointEditComponent, prevPointEditComponent);
     }
 
     remove(prevPointComponent);
@@ -53,16 +53,6 @@ export default class PointPresenter {
 
   }
 
-  #handleBtnClick = () => {
-    this.#replaceFormToCard();
-    document.addEventListener('keydown', this.#escKeyDownHandler);
-  };
-
-  #handleSubmitClick = () => {
-    this.#replaceCardToForm();
-    document.addEventListener('keydown', this.#escKeyDownHandler);
-  };
-
   #replaceFormToCard() {
     replace(this.#pointEditComponent, this.#pointComponent);
   }
@@ -70,6 +60,16 @@ export default class PointPresenter {
   #replaceCardToForm() {
     replace(this.#pointComponent, this.#pointEditComponent);
   }
+
+  #handleBtnClick = () => {
+    this.#replaceFormToCard();
+    document.addEventListener('keydown', this.#escKeyDownHandler);
+  };
+
+  #handleSubmitClick = () => {
+    this.#replaceCardToForm();
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
+  };
 
   #escKeyDownHandler = (evt) => {
     if (isEscapeKey(evt)) {

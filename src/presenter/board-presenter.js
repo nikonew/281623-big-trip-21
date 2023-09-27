@@ -21,7 +21,7 @@ export default class BoardPresenter {
     this.#listPoints = [...this.#pointsModel.points];
   }
 
-  #handleTaskChange = (updatedPoint) => {
+  #handlePointChange = (updatedPoint) => {
     this.#listPoints = updateItem(this.#listPoints, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
@@ -29,6 +29,7 @@ export default class BoardPresenter {
   #renderPoint(point) {
     const pointPresenter = new PointPresenter({
       container: this.#listComponent.element,
+      onDataChange: this.#handlePointChange,
     });
     pointPresenter.init(point);
     this.#pointPresenters.set(point.id, pointPresenter);
