@@ -3,6 +3,7 @@ import SortView from '../view/list-sort.js';
 import {render, RenderPosition} from '../framework/render.js';
 import NoPointView from '../view/no-task-view.js';
 import PointPresenter from './point-presenter.js';
+import {updateItem} from '../util.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
@@ -19,6 +20,11 @@ export default class BoardPresenter {
     this.#pointsModel = pointsModel;
     this.#listPoints = [...this.#pointsModel.points];
   }
+
+  #handleTaskChange = (updatedPoint) => {
+    this.#listPoints = updateItem(this.#listPoints, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  };
 
   #renderPoint(point) {
     const pointPresenter = new PointPresenter({
