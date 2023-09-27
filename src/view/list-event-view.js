@@ -111,7 +111,7 @@ export default class EventEditView extends AbstractView {
 
   #formHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormEdit();
+    this.#handleFormEdit(this.#point);
   };
 
 }
