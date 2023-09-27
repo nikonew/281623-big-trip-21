@@ -1,4 +1,3 @@
-import {isEscapeKey} from '../util.js';
 import EditList from '../view/list-view.js';
 import SortView from '../view/list-sort.js';
 import {render, RenderPosition} from '../framework/render.js';
