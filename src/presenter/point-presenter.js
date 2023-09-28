@@ -3,16 +3,24 @@ import {isEscapeKey} from '../util.js';
 import EventEditView from '../view/list-event-view.js';
 import PointView from '../view/list-point.js';
 
+const Mode = {
+  DEFAULT: 'DEFAULT',
+  EDITING: 'EDITING',
+};
+
 export default class PointPresenter {
   #pointListContainer = null;
   #pointComponent = null;
   #pointEditComponent = null;
   #point = null;
   #handleDataChange = null;
+  #handleModeChange = null;
+  #mode = Mode.DEFAULT;
 
-  constructor({container, onDataChange}) {
+  constructor({container, onDataChange, onModeChange}) {
     this.#pointListContainer = container;
     this.#handleDataChange = onDataChange;
+    this.#handleModeChange = onModeChange;
   }
 
   init(point) {
@@ -37,11 +45,11 @@ export default class PointPresenter {
       return;
     }
 
-    if (this.#pointListContainer.contains(prevPointComponent.element)) {
+    if (this.#mode === Mode.DEFAULT) {
       replace(this.#pointComponent, prevPointComponent);
     }
 
-    if (this.#pointListContainer.contains(prevPointEditComponent.element)) {
+    if (this.#mode === Mode.EDITING) {
       replace(this.#pointEditComponent, prevPointEditComponent);
     }
 
@@ -56,28 +64,37 @@ export default class PointPresenter {
   }
 
   #replaceFormToCard() {
-    replace(this.#pointEditComponent, this.#pointComponent);
+    replace(this.#pointComponent, this.#pointEditComponent);
+    document.removeEventListener('keydown', this.#escKeyDownHandler);
+    this.#mode = Mode.DEFAULT;
   }
 
   #replaceCardToForm() {
-    replace(this.#pointComponent, this.#pointEditComponent);
+    replace(this.#pointEditComponent, this.#pointComponent);
+    document.addEventListener('keydown', this.#escKeyDownHandler);
+    this.#handleModeChange();
+    this.#mode = Mode.EDITING;
+  }
+
+  resetView() {
+    if (this.#mode !== Mode.DEFAULT) {
+      this.#replaceFormToCard();
+    }
   }
 
   #handleBtnClick = () => {
-    this.#replaceFormToCard();
-    document.addEventListener('keydown', this.#escKeyDownHandler);
+    this.#replaceCardToForm();
   };
 
   #handleSubmitClick = (point) => {
     this.#handleDataChange(point);
-    this.#replaceCardToForm();
-    document.removeEventListener('keydown', this.#escKeyDownHandler);
+    this.#replaceFormToCard();
   };
 
   #escKeyDownHandler = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      this.#handleSubmitClick();
+      this.#replaceFormToCard();
     }
   };
 

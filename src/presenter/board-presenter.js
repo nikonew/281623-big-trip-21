@@ -30,6 +30,7 @@ export default class BoardPresenter {
     const pointPresenter = new PointPresenter({
       container: this.#listComponent.element,
       onDataChange: this.#handlePointChange,
+      onModeChange: this.#handleModeChange
     });
     pointPresenter.init(point);
     this.#pointPresenters.set(point.id, pointPresenter);
@@ -53,6 +54,10 @@ export default class BoardPresenter {
       this.#renderPoint(item);
     });
   }
+
+  #handleModeChange = () => {
+    this.#pointPresenters.forEach((presenter) => presenter.resetView());
+  };
 
   #renderPointComponent() {
     if(this.#listPoints.length === 0) {
