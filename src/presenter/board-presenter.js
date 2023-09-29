@@ -71,10 +71,6 @@ export default class BoardPresenter {
 
   }
 
-  #renderPointsContainer() {
-    render(this.#listComponent, this.#boardContainer);
-  }
-
   init() {
     this.#renderPointComponent();
   }

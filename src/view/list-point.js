@@ -23,7 +23,7 @@ function createPointTemplate (point) {
             <div class="event__schedule">
                 <p class="event__time">
                 <time class="event__start-time" datetime="2019-03-18T10:30">${dataStart}</time>
-
+                &mdash;
                 <time class="event__end-time" datetime="2019-03-18T11:00">${dateEnd}</time>
                 </p>
                 <p class="event__duration">${getPointDuration(dateFrom, dateTo)}</p>
@@ -68,6 +68,10 @@ export default class PointView extends AbstractView {
     this.element
       .querySelector('.event__rollup-btn')
       .addEventListener('click', this.#editClickHandler);
+
+    this.element
+      .querySelector('.event__favorite-btn')
+      .addEventListener('click', this.#favoriteClickHandler);
   }
 
   get template() {
