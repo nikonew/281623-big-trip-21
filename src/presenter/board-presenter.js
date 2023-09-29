@@ -7,7 +7,7 @@ import {updateItem} from '../util.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
-  #listSort = new SortView();
+  #sortComponent = null;
   #noPointComponent = new NoPointView();
   #pointsModel = null;
   #boardContainer = null;
@@ -26,6 +26,12 @@ export default class BoardPresenter {
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
 
+  #handleSortTypeChange = (sortType) => {
+    // - Сортируем задачи
+    // - Очищаем список
+    // - Рендерим список заново
+  };
+
   #renderPoint(point) {
     const pointPresenter = new PointPresenter({
       container: this.#listComponent.element,
@@ -42,7 +48,11 @@ export default class BoardPresenter {
   }
 
   #renderSort() {
-    render(this.#listSort, this.#boardContainer, RenderPosition.AFTERBEGIN);
+    this.#sortComponent = new SortView({
+      onSortTypeChange: this.#handleSortTypeChange
+    });
+
+    render(this.#sortComponent, this.#boardContainer, RenderPosition.AFTERBEGIN);
   }
 
   #renderNoPoint() {
