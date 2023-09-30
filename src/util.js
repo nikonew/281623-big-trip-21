@@ -59,6 +59,27 @@ export function getPointDuration(dateFrom, dateTo) {
   return pointDuration;
 }
 
+export const sortByDay = (pointA, pointB) => {
+  if (dayjs(pointA.dateFrom).isAfter(dayjs(pointB.dateFrom))) {
+    return 1;
+  }
+  if (dayjs(pointA.dateFrom) === (dayjs(pointB.dateFrom))) {
+    return 0;
+  }
+  if (dayjs(pointA.dateFrom).isBefore(dayjs(pointB.dateFrom))) {
+    return -1;
+  }
+};
+
+export function sortByTime (pointA, pointB){
+  return dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom)) - dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
+}
+
+export function sortByPrice (pointA,pointB) {
+  return pointA.basePrice > pointB.basePrice ? -1 : 1;
+}
+
+
 export function updateItem(items, update) {
   return items.map((item) => item.id === update.id ? update : item);
 }

@@ -39,18 +39,10 @@ export const FilterType = {
   PAST:'past',
 };
 
-export const SORT_TYPE = {
+export const SortType = {
   DAY: 'day',
   EVENT: 'event',
   TIME: 'time',
   PRICE: 'price',
   OFFERS: 'offers'
 };
-
-// const enabledSortType = {
-//   [SORT_TYPE.DAY]: true,
-//   [SORT_TYPE.EVENT]: false,
-//   [SORT_TYPE.TIME]: true,
-//   [SORT_TYPE.PRICE]: true,
-//   [SORT_TYPE.OFFERS]: false,
-// };
