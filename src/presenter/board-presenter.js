@@ -5,7 +5,7 @@ import NoPointView from '../view/no-task-view.js';
 import PointPresenter from './point-presenter.js';
 import {updateItem} from '../util.js';
 import { SortType} from '../const.js';
-import { sortByDay, sortByPrice, sortByTime} from '../util.js';
+import { sortByDate, sortByPrice, sortByTime} from '../util.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
@@ -17,7 +17,6 @@ export default class BoardPresenter {
 
   #pointPresenters = new Map();
   #currentSortType = SortType.DAY;
-  #sourcedBoardTasks = [];
 
   constructor({boardContainer, pointsModel}) {
     this.#boardContainer = boardContainer;
@@ -27,14 +26,15 @@ export default class BoardPresenter {
 
   #handlePointChange = (updatedPoint) => {
     this.#listPoints = updateItem(this.#listPoints, updatedPoint);
-    this.#sourcedBoardTasks = updateItem(this.#sourcedBoardTasks, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
 
   #sortPoints(sortType) {
     switch (sortType) {
       case SortType.DAY:
-        this.#listPoints.sort(sortByDay);
+        this.#listPoints.sort(sortByDate);
+        break;
+      case SortType.EVENT:
         break;
       case SortType.TIME:
         this.#listPoints.sort(sortByTime);
@@ -42,8 +42,8 @@ export default class BoardPresenter {
       case SortType.PRICE:
         this.#listPoints.sort(sortByPrice);
         break;
-      default:
-        this.#listPoints = [...this.#sourcedBoardTasks];
+      case SortType.OFFERS:
+        break;
     }
     this.#currentSortType = sortType;
   }
@@ -108,6 +108,5 @@ export default class BoardPresenter {
 
   init() {
     this.#renderPointComponent();
-    this.#sourcedBoardTasks = [...this.#pointsModel.points];
   }
 }
