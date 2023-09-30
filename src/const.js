@@ -1,5 +1,5 @@
 
-export const POINTS_COUNT = 4;
+export const POINTS_COUNT = 8;
 
 export const DATE_FORMAT = 'MMMM DD';
 
@@ -32,14 +32,14 @@ export const DESCRIPTIONS = [
   'Sed sed nisi sed augue convallis suscipit in sed felis'
 ];
 
-export const FilterType = {
+export const FILTER_TYPE = {
   EVERYTHING: 'everything',
   FUTURE:'future',
   PRESENT:'present',
   PAST:'past',
 };
 
-export const SortType = {
+export const SORT_TYPE = {
   DAY: 'day',
   EVENT: 'event',
   TIME: 'time',

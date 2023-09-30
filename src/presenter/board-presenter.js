@@ -4,7 +4,7 @@ import {render, RenderPosition} from '../framework/render.js';
 import NoPointView from '../view/no-task-view.js';
 import PointPresenter from './point-presenter.js';
 import {updateItem} from '../util.js';
-import { SortType} from '../const.js';
+import { SORT_TYPE} from '../const.js';
 import { sortByDate, sortByPrice, sortByTime} from '../util.js';
 
 export default class BoardPresenter {
@@ -16,7 +16,7 @@ export default class BoardPresenter {
   #listPoints = [];
 
   #pointPresenters = new Map();
-  #currentSortType = SortType.DAY;
+  #currentSortType = SORT_TYPE.DAY;
 
   constructor({boardContainer, pointsModel}) {
     this.#boardContainer = boardContainer;
@@ -31,18 +31,18 @@ export default class BoardPresenter {
 
   #sortPoints(sortType) {
     switch (sortType) {
-      case SortType.DAY:
+      case SORT_TYPE.DAY:
         this.#listPoints.sort(sortByDate);
         break;
-      case SortType.EVENT:
+      case SORT_TYPE.EVENT:
         break;
-      case SortType.TIME:
+      case SORT_TYPE.TIME:
         this.#listPoints.sort(sortByTime);
         break;
-      case SortType.PRICE:
+      case SORT_TYPE.PRICE:
         this.#listPoints.sort(sortByPrice);
         break;
-      case SortType.OFFERS:
+      case SORT_TYPE.OFFERS:
         break;
     }
     this.#currentSortType = sortType;
