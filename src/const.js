@@ -1,5 +1,5 @@
 
-export const POINTS_COUNT = 8;
+export const POINTS_COUNT = 4;
 
 export const DATE_FORMAT = 'MMMM DD';
 
@@ -45,4 +45,11 @@ export const SORT_TYPE = {
   TIME: 'time',
   PRICE: 'price',
   OFFERS: 'offers'
+};
+
+export const ENABLE_SORT_TYPE = {
+  [SORT_TYPE.DAY]: true,
+  [SORT_TYPE.EVENT]: false,
+  [SORT_TYPE.TIME]: true,
+  [SORT_TYPE.PRICE]: true,
 };

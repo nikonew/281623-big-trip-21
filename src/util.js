@@ -61,16 +61,37 @@ export function getPointDuration(dateFrom, dateTo) {
 
 dayjs.extend(duration);
 
-export function sortByDate (a, b) {
-  return dayjs(a.dateFrom) > dayjs(b.dateFrom) ? 1 : -1;
+export function sortByDate (pointA, pointB) {
+  // у dayjs есть метод diff сравнения дат
+  return dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
 }
 
-export function sortByTime (a, b) {
-  return dayjs(a.dateFrom).diff(dayjs(a.dateTo)) > dayjs(b.dateFrom).diff(dayjs(b.dateTo)) ? 1 : -1;
+export function sortByTime (pointA, pointB) {
+  const durationA = dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
+  const durationB = dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom));
+
+  if (durationA > durationB) {
+    return -1;
+  }
+
+  if (durationA < durationB) {
+    return 1;
+  }
+
+  return 0;
 }
 
-export function sortByPrice (a, b) {
-  return a.basePrice > b.basePrice ? -1 : 1;
+export function sortByPrice (pointA, pointB) {
+  if (pointA.basePrice > pointB.basePrice) {
+    return -1;
+  }
+
+  if (pointA.basePrice < pointB.basePrice) {
+    return 1;
+  }
+
+  // если цены равны
+  return 0;
 }
 
 

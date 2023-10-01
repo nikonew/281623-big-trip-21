@@ -10,7 +10,7 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
           <div class="event__type-wrapper">
             <label class="event__type  event__type-btn" for="event-type-toggle-1">
               <span class="visually-hidden">Choose event type</span>
-              <img class="event__type-icon" width="17" height="17" src="img/icons/${type}.png" alt="Event type icon">
+              <img class="event__type-icon" width="17" height="17" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
             </label>
             <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
             <div class="event__type-list">
@@ -18,8 +18,8 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
                 <legend class="visually-hidden">Event type</legend>
                 ${TYPES.map((elementType) => `
                 <div class="event__type-item">
-                  <input id="event-type-${elementType}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${elementType}">
-                  <label class="event__type-label  event__type-label--${elementType}" for="event-type-${elementType}-1">${elementType}</label>
+<input id="event-type-${elementType.toLowerCase()}-1" class="event__type-input visually-hidden" type="radio" name="event-type" value="${elementType.toLowerCase()}" ${type.toLowerCase() === elementType.toLowerCase() ? 'checked' : ''}>
+      <label class="event__type-label event__type-label--${elementType.toLowerCase()}" for="event-type-${elementType.toLowerCase()}-1">${elementType}</label>
                 </div>
                 `).join('')}
               </fieldset>
