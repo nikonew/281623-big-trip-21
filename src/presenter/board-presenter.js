@@ -118,6 +118,5 @@ export default class BoardPresenter {
 
   init() {
     this.#renderPointComponent();
-    this.#sortPoints(SORT_TYPE.DAY);
   }
 }

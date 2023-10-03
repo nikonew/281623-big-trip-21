@@ -3,7 +3,7 @@ import {TYPES} from '../const.js';
 import {destinations} from './destination.js';
 import {offers} from './offers.js';
 
-const points = [
+export const points = [
   {
     'id': crypto.randomUUID(),
     'basePrice': 1100,
@@ -45,9 +45,3 @@ const points = [
     'type': getRandomArrayElement(TYPES)
   }
 ];
-
-export function getRandomPoint() {
-  return getRandomArrayElement(points);
-}
-
-export const randomPoint = getRandomPoint();
