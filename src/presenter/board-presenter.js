@@ -40,15 +40,21 @@ export default class BoardPresenter {
   };
 
   #sortPoints(sortType) {
+    // 2. Этот исходный массив задач
     switch (sortType) {
-      case SORT_TYPE.DAY:
-        this.#listPoints.sort(sortByDate);
-        break;
       case SORT_TYPE.TIME:
+        // sort встроенный метод массива
         this.#listPoints.sort(sortByTime);
         break;
       case SORT_TYPE.PRICE:
         this.#listPoints.sort(sortByPrice);
+        break;
+      case SORT_TYPE.DAY:
+        this.#listPoints.sort(sortByDate);
+        break;
+      case SORT_TYPE.EVENT:
+        break;
+      case SORT_TYPE.OFFERS:
         break;
     }
     this.#currentSortType = sortType;
@@ -108,10 +114,10 @@ export default class BoardPresenter {
     render(this.#listComponent, this.#boardContainer);
     this.#renderPointList();
     this.#renderSort();
-
   }
 
   init() {
     this.#renderPointComponent();
+    this.#sortPoints(SORT_TYPE.DAY);
   }
 }
