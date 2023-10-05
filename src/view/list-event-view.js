@@ -1,8 +1,9 @@
 import {TYPES} from '../const.js';
-import AbstractView from '../framework/view/abstract-view.js';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view';
 
 
-function createEventEditTemplate({type, basePrice, destination, offers}) {
+function createEventEditTemplate({state}) {
+  const {type, basePrice, destination, offers } = state;
   return (`
     <li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
@@ -88,30 +89,37 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
 }
 
 
-export default class EventEditView extends AbstractView {
-  #point = null;
+export default class EventEditView extends AbstractStatefulView {
   #handleFormEdit = null;
 
   constructor({point, onSubmitClick}) {
     super();
-    this.#point = point;
+    this._state = point;
     this.#handleFormEdit = onSubmitClick;
 
+    this._setState(EventEditView.parsePointToState({point}));
+    this._restoreHandlers();
+
+  }
+
+  get template() {
+    return createEventEditTemplate({state: this._state});
+  }
+
+  _restoreHandlers = () => {
     this.element
       .querySelector('.event__rollup-btn')
       .addEventListener('click', this.#formHandler);
 
     this.element.querySelector('form')
       .addEventListener('submit', this.#formHandler);
-  }
-
-  get template() {
-    return createEventEditTemplate(this.#point);
-  }
+  };
 
   #formHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormEdit(this.#point);
+    this.#handleFormEdit(this._state);
   };
 
+  static parsePointToState = ({point}) => ({point});
+  static parseStateToPoint = (state) => state.point;
 }
