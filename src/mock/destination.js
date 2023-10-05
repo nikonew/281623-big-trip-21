@@ -49,3 +49,17 @@ export const destinations = [
 ];
 
 
+export const generateMockDestinations = () => {
+  const photos = `https://loremflickr.com/300/200?random=${crypto.randomUUID()}`;
+
+  return {
+    id: crypto.randomUUID(),
+    name: getRandomArrayElement(DESTINATIONS),
+    description: getRandomArrayElement(DESCRIPTIONS),
+    pictures:[
+      {'src': photos,
+        'description':getRandomArrayElement(DESCRIPTIONS),
+      }
+    ]
+  };
+};

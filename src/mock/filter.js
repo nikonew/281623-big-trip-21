@@ -1,4 +1,4 @@
-import { FilterType } from '../const';
+import { FILTER_TYPE } from '../const';
 import dayjs from 'dayjs';
 
 const isStartDateExpired = (dateFrom) => dayjs(dateFrom).isAfter(dayjs());
@@ -13,10 +13,10 @@ const isPastEvent = (dateFrom, dateTo) => !isStartDateExpired(dateFrom) && !isEn
 
 
 const filterElements = {
-  [FilterType.EVERYTHING]: (points) => points,
-  [FilterType.FUTURE]: (points) => points.filter((point) => isFutureEvent(point.dateFrom, point.dateTo)),
-  [FilterType.PRESENT]: (points) => points.filter((point) => isPresentEvent(point.dateFrom, point.dateTo)),
-  [FilterType.PAST]: (points) => points.filter((point) => isPastEvent(point.dateFrom, point.dateTo)),
+  [FILTER_TYPE.EVERYTHING]: (points) => points,
+  [FILTER_TYPE.FUTURE]: (points) => points.filter((point) => isFutureEvent(point.dateFrom, point.dateTo)),
+  [FILTER_TYPE.PRESENT]: (points) => points.filter((point) => isPresentEvent(point.dateFrom, point.dateTo)),
+  [FILTER_TYPE.PAST]: (points) => points.filter((point) => isPastEvent(point.dateFrom, point.dateTo)),
 };
 
 export function generateFilter(points){

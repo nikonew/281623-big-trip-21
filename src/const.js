@@ -32,9 +32,24 @@ export const DESCRIPTIONS = [
   'Sed sed nisi sed augue convallis suscipit in sed felis'
 ];
 
-export const FilterType = {
+export const FILTER_TYPE = {
   EVERYTHING: 'everything',
   FUTURE:'future',
   PRESENT:'present',
   PAST:'past',
+};
+
+export const SORT_TYPE = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFERS: 'offers'
+};
+
+export const ENABLE_SORT_TYPE = {
+  [SORT_TYPE.DAY]: true,
+  [SORT_TYPE.EVENT]: false,
+  [SORT_TYPE.TIME]: true,
+  [SORT_TYPE.PRICE]: true,
 };

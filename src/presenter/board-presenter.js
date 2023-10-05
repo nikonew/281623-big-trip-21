@@ -1,75 +1,130 @@
-import {isEscapeKey} from '../util.js';
 import EditList from '../view/list-view.js';
 import SortView from '../view/list-sort.js';
-import PointView from '../view/list-point.js';
-import EventEditView from '../view/list-event-view.js';
-import {render,replace} from '../framework/render.js';
+import {render, RenderPosition, replace,remove} from '../framework/render.js';
 import NoPointView from '../view/no-task-view.js';
+import PointPresenter from './point-presenter.js';
+import {updateItem} from '../util.js';
+import {ENABLE_SORT_TYPE, SORT_TYPE} from '../const.js';
+import { sortByDate, sortByPrice, sortByTime} from '../util.js';
 
 export default class BoardPresenter {
   #listComponent = new EditList();
-  #listSort = new SortView();
+  #sortComponent = null;
+  #noPointComponent = new NoPointView();
   #pointsModel = null;
   #boardContainer = null;
   #listPoints = [];
 
+  #pointPresenters = new Map();
+  #currentSortType = SORT_TYPE.DAY;
+
   constructor({boardContainer, pointsModel}) {
     this.#boardContainer = boardContainer;
     this.#pointsModel = pointsModel;
-  }
-
-  init() {
-    render(this.#listSort, this.#boardContainer);
     this.#listPoints = [...this.#pointsModel.points];
+  }
+
+  #renderPoint(point) {
+    const pointPresenter = new PointPresenter({
+      container: this.#listComponent.element,
+      onDataChange: this.#handlePointChange,
+      onModeChange: this.#handleModeChange
+    });
+    pointPresenter.init(point);
+    this.#pointPresenters.set(point.id, pointPresenter);
+  }
+
+  #handlePointChange = (updatedPoint) => {
+    this.#listPoints = updateItem(this.#listPoints, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  };
+
+  #sortPoints(sortType) {
+    // 2. Этот исходный массив задач
+    switch (sortType) {
+      case SORT_TYPE.TIME:
+        // sort встроенный метод массива
+        this.#listPoints.sort(sortByTime);
+        break;
+      case SORT_TYPE.PRICE:
+        this.#listPoints.sort(sortByPrice);
+        break;
+      case SORT_TYPE.DAY:
+        this.#listPoints.sort(sortByDate);
+        break;
+      case SORT_TYPE.EVENT:
+        break;
+      case SORT_TYPE.OFFERS:
+        break;
+    }
+    this.#currentSortType = sortType;
+  }
+
+  #handleSortTypeChange = (sortType) => {
+    if (this.#currentSortType === sortType) {
+      return;
+    }
+    this.#sortPoints(sortType);
+    this.#clearPointList();
+    this.#renderSort();
     this.#renderPointList();
+  };
+
+  #clearPointList() {
+    this.#pointPresenters.forEach((presenter) => presenter.destroy());
+    this.#pointPresenters.clear();
   }
 
-  #renderTask(point) {
-    const escKeyDownHandler = (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        replaceCardToForm();
-        document.removeEventListener('keydown', escKeyDownHandler);
-      }
-    };
+  #renderSort() {
+    const prevSortComponent = this.#sortComponent;
+    const sortTypes = Object.values(SORT_TYPE)
+      // для каждого типа сортировки формирует объект
+      .map((type) => ({
+        type,
+        isChecked: (type === this.#currentSortType),
+        isDisabled: !ENABLE_SORT_TYPE[type]
+      }));
 
-    const pointComponent = new PointView({
-      point,
-      onEditClick: () => {
-        replaceFormToCard();
-        document.addEventListener('keydown', escKeyDownHandler);
-      }
+
+    this.#sortComponent = new SortView({
+      items: sortTypes,
+      onSortTypeChange: this.#handleSortTypeChange,
     });
 
-    function onSubmitClick () {
-      replaceCardToForm();
-      document.removeEventListener('keydown', escKeyDownHandler);
+    if (prevSortComponent) {
+      replace(this.#sortComponent, prevSortComponent);
+      remove(prevSortComponent);
+    } else {
+      render(this.#sortComponent, this.#boardContainer, RenderPosition.AFTERBEGIN);
     }
-
-    const pointForm = new EventEditView({
-      point, onSubmitClick
-    });
-
-    function replaceFormToCard() {
-      replace(pointForm, pointComponent);
-    }
-
-    function replaceCardToForm() {
-      replace(pointComponent, pointForm);
-    }
-
-    render(pointComponent, this.#listComponent.element);
   }
 
-  #renderPointList() {
+  #renderNoPoint() {
+    render(this.#noPointComponent, this.#boardContainer);
+  }
+
+  #renderPointList () {
+    this.#listPoints.map((item) => {
+      this.#renderPoint(item);
+    });
+  }
+
+  #handleModeChange = () => {
+    this.#pointPresenters.forEach((presenter) => presenter.resetView());
+  };
+
+  #renderPointComponent() {
     if(this.#listPoints.length === 0) {
-      render(new NoPointView(), this.#boardContainer);
+      render(this.#renderNoPoint());
       return;
     }
 
     render(this.#listComponent, this.#boardContainer);
-    this.#listPoints.map((item) => {
-      this.#renderTask(item);
-    });
+    this.#renderPointList();
+    this.#renderSort();
+  }
+
+  init() {
+    this.#renderPointComponent();
   }
 }

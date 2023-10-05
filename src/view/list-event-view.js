@@ -18,8 +18,8 @@ function createEventEditTemplate({type, basePrice, destination, offers}) {
                 <legend class="visually-hidden">Event type</legend>
                 ${TYPES.map((elementType) => `
                 <div class="event__type-item">
-                  <input id="event-type-${elementType}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${elementType}">
-                  <label class="event__type-label  event__type-label--${elementType}" for="event-type-${elementType}-1">${elementType}</label>
+<input id="event-type-${elementType}-1" class="event__type-input visually-hidden" type="radio" name="event-type" value="${elementType}" ${type === elementType ? 'checked' : ''}>
+      <label class="event__type-label event__type-label--${elementType}" for="event-type-${elementType}-1">${elementType.charAt(0).toUpperCase() + elementType.slice(1)}</label>
                 </div>
                 `).join('')}
               </fieldset>
@@ -111,7 +111,7 @@ export default class EventEditView extends AbstractView {
 
   #formHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormEdit();
+    this.#handleFormEdit(this.#point);
   };
 
 }
