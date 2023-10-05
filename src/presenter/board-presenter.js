@@ -1,6 +1,6 @@
 import EditList from '../view/list-view.js';
 import SortView from '../view/list-sort.js';
-import {render, RenderPosition} from '../framework/render.js';
+import {render, RenderPosition, replace,remove} from '../framework/render.js';
 import NoPointView from '../view/no-task-view.js';
 import PointPresenter from './point-presenter.js';
 import {updateItem} from '../util.js';
@@ -66,6 +66,7 @@ export default class BoardPresenter {
     }
     this.#sortPoints(sortType);
     this.#clearPointList();
+    this.#renderSort();
     this.#renderPointList();
   };
 
@@ -75,6 +76,7 @@ export default class BoardPresenter {
   }
 
   #renderSort() {
+    const prevSortComponent = this.#sortComponent;
     const sortTypes = Object.values(SORT_TYPE)
       // для каждого типа сортировки формирует объект
       .map((type) => ({
@@ -83,12 +85,18 @@ export default class BoardPresenter {
         isDisabled: !ENABLE_SORT_TYPE[type]
       }));
 
+
     this.#sortComponent = new SortView({
       items: sortTypes,
       onSortTypeChange: this.#handleSortTypeChange,
     });
 
-    render(this.#sortComponent, this.#boardContainer, RenderPosition.AFTERBEGIN);
+    if (prevSortComponent) {
+      replace(this.#sortComponent, prevSortComponent);
+      remove(prevSortComponent);
+    } else {
+      render(this.#sortComponent, this.#boardContainer, RenderPosition.AFTERBEGIN);
+    }
   }
 
   #renderNoPoint() {
