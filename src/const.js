@@ -1,5 +1,5 @@
 
-export const POINTS_COUNT = 4;
+//export const POINTS_COUNT = 4;
 
 export const DATE_FORMAT = 'MMMM DD';
 
