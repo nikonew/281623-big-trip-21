@@ -219,8 +219,5 @@ export default class EventEditView extends AbstractStatefulView {
   };
 
   static parsePointToState = ({point}) => ({point});
-  st;
-
-  static parsePointToState = ({point}) => ({point});
   static parseStateToPoint = (state) => state.point;
 }
