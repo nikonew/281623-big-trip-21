@@ -12,15 +12,17 @@ export default class BoardPresenter {
   #sortComponent = null;
   #noPointComponent = new NoPointView();
   #pointsModel = null;
+  #destination = null;
   #boardContainer = null;
   #listPoints = [];
 
   #pointPresenters = new Map();
   #currentSortType = SORT_TYPE.DAY;
 
-  constructor({boardContainer, pointsModel}) {
+  constructor({boardContainer, pointsModel, destination}) {
     this.#boardContainer = boardContainer;
     this.#pointsModel = pointsModel;
+    this.#destination = [...this.#pointsModel.destinations];
     this.#listPoints = [...this.#pointsModel.points];
   }
 
