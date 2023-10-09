@@ -62,7 +62,7 @@ function createEventEditTemplate({state}) {
             <div class="event__available-offers">
               ${offers.map((element) => (
       `<div class="event__offer-selector">
-      <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
+      <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" data-offer-id=${element.id} checked>
       <label class="event__offer-label" for="event-offer-luggage-1">
         <span class="event__offer-title">${element.title}</span>
         &plus;&euro;&nbsp;
@@ -138,6 +138,8 @@ export default class EventEditView extends AbstractStatefulView {
 
     this.element.querySelector('.event__input--price')
       .addEventListener('change', this.#priceChangeHandler);
+    this.element.querySelector('.event__available-offers')
+      ?.addEventListener('change', this.#offerChangeHandler);
     this.#setDatepickers();
   };
 
@@ -216,6 +218,17 @@ export default class EventEditView extends AbstractStatefulView {
         minDate: this._state.point.dateFrom,
       }
     );
+  };
+
+  #offerChangeHandler = () => {
+    const checkedBoxes = Array.from(this.element.querySelectorAll('.event__offer-checkbox:checked'));
+
+    this._setState({
+      point: {
+        ...this._state.point,
+        offers: checkedBoxes.map((element) => element.dataset.offerId)
+      }
+    });
   };
 
   static parsePointToState = ({point}) => ({point});
